@@ -44,7 +44,7 @@ io.on('connection', function(socket) {
     console.log(parsed.sensor);
   });
   socket.on('arduino', function(data) {
-    io.sockets.emit('arduino', { message: JSON.stringify(data). });
+    io.sockets.emit('arduino', { message: JSON.stringify(data) });
     console.log(data);
   });
 });
