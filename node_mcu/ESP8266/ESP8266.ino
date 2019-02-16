@@ -2,14 +2,17 @@
 #include <SocketIOClient.h>
 #include <ArduinoJson.h>
 
+#define ON 1
+#define OFF 0
+
 StaticJsonBuffer<200> jsonBuffer;
 
 SocketIOClient client;
 const char *ssid = "GCS";
 const char *password = "135792468";
 
-char host[] = "192.168.1.9";
-int port = 3000;
+char host[] = "iot-anbinh.herokuapp.com";
+int port = 80;
 
 extern String RID;
 extern String Rname;
@@ -31,6 +34,8 @@ void setup()
 {
   Led_setup(led_pin);
   Nokia5110_setup();
+
+  Nokia5110_backlight(ON);
   
   root["sensor"] = "gps";
   root["time"] = 1351824120;
@@ -93,9 +98,10 @@ void loop()
   if (!client.connected())
   {
     client.send("connection", "message", "Connected !!!!");
-    sprintf(messageStr,"disconnected server!");
+    sprintf(messageStr,"retrying connect...");
     Nokia5110_print(ssid, ipStr, messageStr);
     delay(500);
+    client.connect(host, port);
     return;
   }
   unsigned long currentMillis = millis();

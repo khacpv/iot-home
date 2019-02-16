@@ -48,6 +48,7 @@ const unsigned char logo[504] PROGMEM = {
 };
 
 Nokia_LCD lcd(14 /* CLK */, 12 /* DIN */, 13 /* DC */, 15 /* CE */, 2 /* RST */);
+const int PIN_BACKLIGHT = 4;
 int ROW = 8;
 
 void Nokia5110_setup() {
@@ -64,6 +65,17 @@ void Nokia5110_setup() {
   lcd.draw(logo, sizeof(logo) / sizeof(logo[0]), true);
   delay(1000);
   lcd.setContrast(60);  // Good values are usualy between 40 and 60
+
+  pinMode(PIN_BACKLIGHT, OUTPUT);
+  digitalWrite(PIN_BACKLIGHT, HIGH);
+}
+
+void Nokia5110_backlight(const int isOn) {
+  if(isOn){
+    digitalWrite(PIN_BACKLIGHT, HIGH);
+    return;
+  }
+  digitalWrite(PIN_BACKLIGHT, LOW);
 }
 
 void Nokia5110_print(const char* ssid, const char* ip, const char* message) {
