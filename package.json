@@ -1,5 +1,5 @@
 {
-  "name": "socketServer1",
+  "name": "IoT-Home",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,8 +11,9 @@
     "ip": "^1.1.4"
   },
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "khacpv@gmail.com",
   "license": "ISC"
 }
