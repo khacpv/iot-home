@@ -51,6 +51,9 @@ Nokia_LCD lcd(14 /* CLK */, 12 /* DIN */, 13 /* DC */, 15 /* CE */, 2 /* RST */)
 const int PIN_BACKLIGHT = 4;
 int ROW = 8;
 
+char* _ssid;
+char* _ip;
+
 void Nokia5110_setup() {
   Serial.print("setting screen 5110");
   
@@ -78,9 +81,11 @@ void Nokia5110_backlight(const int isOn) {
   digitalWrite(PIN_BACKLIGHT, LOW);
 }
 
-void Nokia5110_print(const char* ssid, const char* ip, const char* message) {
+void Nokia5110_print(char* ssid, char* ip, char* message) {
+  _ssid = ssid;
+  _ip = ip;
   lcd.clear();
-  lcd.setCursor(0,1);
+  lcd.setCursor(0,0);
   lcd.print("IP: ");
   lcd.print(ip);
   lcd.print("\n");
@@ -90,8 +95,6 @@ void Nokia5110_print(const char* ssid, const char* ip, const char* message) {
   lcd.print(message);
 }
 
-void Nokia5110_print(const char* message) {
-  lcd.clear();
-  lcd.setCursor(0,1);
-  lcd.print(message);
+void Nokia5110_print(char* message) {
+  Nokia5110_print(_ssid, _ip, message);
 }
